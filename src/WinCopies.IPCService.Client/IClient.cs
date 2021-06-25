@@ -1,4 +1,4 @@
-MIT License
+﻿/* MIT License
 
 Copyright (c) 2018 Jacques Kang Copyright (c) 2021 Pierre Sprimont
 
@@ -18,4 +18,31 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+SOFTWARE. */
+
+using System;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace WinCopies.IPCService.Client
+{
+    public interface IClient<TInterface> where TInterface : class
+    {
+        string Name { get; }
+
+#if !DISABLE_DYNAMIC_CODE_GENERATION
+        Task InvokeAsync(Expression<Action<TInterface>> exp, CancellationToken cancellationToken = default);
+
+        Task<TResult> InvokeAsync<TResult>(Expression<Func<TInterface, TResult>> exp, CancellationToken cancellationToken = default);
+
+        Task InvokeAsync(Expression<Func<TInterface, Task>> exp, CancellationToken cancellationToken = default);
+
+        Task<TResult> InvokeAsync<TResult>(Expression<Func<TInterface, Task<TResult>>> exp, CancellationToken cancellationToken = default);
+#endif
+
+        Task<TResult> InvokeAsync<TResult>(Request request, CancellationToken cancellationToken = default);
+
+        Task InvokeAsync(Request request, CancellationToken cancellationToken = default);
+    }
+}

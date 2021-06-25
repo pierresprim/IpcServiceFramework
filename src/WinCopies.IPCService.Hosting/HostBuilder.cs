@@ -1,4 +1,4 @@
-MIT License
+﻿/* MIT License
 
 Copyright (c) 2018 Jacques Kang Copyright (c) 2021 Pierre Sprimont
 
@@ -18,4 +18,34 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+SOFTWARE. */
+
+using Microsoft.Extensions.DependencyInjection;
+
+using System;
+
+namespace WinCopies.IPCService.Hosting
+{
+    public interface IHostBuilder
+    {
+        IHostBuilder AddIPCEndpoint(Func<IServiceProvider, IEndpoint> factory);
+    }
+
+    internal class HostBuilder : IHostBuilder
+    {
+        private readonly Microsoft.Extensions.Hosting.IHostBuilder _hostBuilder;
+
+        public HostBuilder(Microsoft.Extensions.Hosting.IHostBuilder hostBuilder) => (_hostBuilder = hostBuilder ?? throw new ArgumentNullException(nameof(hostBuilder))).ConfigureServices((_, services) => services.AddHostedService<BackgroundService>());
+
+        public IHostBuilder AddIPCEndpoint(Func<IServiceProvider, IEndpoint> endpointFactory)
+        {
+            if (endpointFactory is null)
+
+                throw new ArgumentNullException(nameof(endpointFactory));
+
+            _ = _hostBuilder.ConfigureServices((_, services) => services.AddSingleton(endpointFactory));
+
+            return this;
+        }
+    }
+}

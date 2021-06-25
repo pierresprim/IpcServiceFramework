@@ -1,4 +1,4 @@
-MIT License
+﻿/* MIT License
 
 Copyright (c) 2018 Jacques Kang Copyright (c) 2021 Pierre Sprimont
 
@@ -18,4 +18,17 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+SOFTWARE. */
+
+namespace WinCopies.IPCService.NamedPipeTests.Fixtures
+{
+    public interface ITestDto
+    {
+        string Value { get; }
+    }
+
+    public class TestDto : ITestDto
+    {
+        public string Value { get; set; }
+    }
+}
