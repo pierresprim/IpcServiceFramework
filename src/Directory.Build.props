@@ -3,12 +3,11 @@
   <PropertyGroup>
     <Authors>Jacques Kang and other GitHub contributors</Authors>
     <Company />
-    <PackageLicenseUrl>https://github.com/jacqueskang/IpcServiceFramework/blob/develop/LICENSE</PackageLicenseUrl>
-    <RepositoryUrl>https://github.com/jacqueskang/IpcServiceFramework</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/jacqueskang/IpcServiceFramework</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/jacqueskang/IPCService/blob/develop/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/jacqueskang/IPCService</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/jacqueskang/IPCService</PackageProjectUrl>
     <Version>3.0.0</Version>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\IpcServiceFramework.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(DisableDynamicCodeGeneration)' == 'true'">
