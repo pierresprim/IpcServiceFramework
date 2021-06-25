@@ -1,19 +1,15 @@
-| CI build | Stable build |
-|----------|--------------|
-|[![Build Status](https://dev.azure.com/jacques-kang/IpcServiceFramework/_apis/build/status/IpcServiceFramework%20CI?branchName=develop)](https://dev.azure.com/jacques-kang/IpcServiceFramework/_build/latest?definitionId=9&branchName=develop)|[![Build Status](https://dev.azure.com/jacques-kang/IpcServiceFramework/_apis/build/status/IpcServiceFramework?branchName=master)](https://dev.azure.com/jacques-kang/IpcServiceFramework/_build/latest?definitionId=14&branchName=master)|
-
 # IpcServiceFramework
 
 A .NET Core 3.1 based lightweight framework for efficient inter-process communication.
 Named pipeline and TCP support out-of-the-box, extensible with other protocols.
 
+Forked from [https://github.com/jacqueskang/IpcServiceFramework](jacqueskang/IpcServiceFramework)
+
 ## NuGet packages
 | Name | Purpose | Status |
 | ---- | ------- | ------ |
-| JKang.IpcServiceFramework.Client.NamedPipe | Client SDK to consume IPC service over Named pipe | [![NuGet version](https://badge.fury.io/nu/JKang.IpcServiceFramework.Client.NamedPipe.svg)](https://badge.fury.io/nu/JKang.IpcServiceFramework.Client.NamedPipe) |
-| JKang.IpcServiceFramework.Client.Tcp | Client SDK to consume IPC service over TCP | [![NuGet version](https://badge.fury.io/nu/JKang.IpcServiceFramework.Client.Tcp.svg)](https://badge.fury.io/nu/JKang.IpcServiceFramework.Client.Tcp) |
-| JKang.IpcServiceFramework.Hosting.NamedPipe | Server SDK to run Named pipe IPC service endpoint | [![NuGet version](https://badge.fury.io/nu/JKang.IpcServiceFramework.Hosting.NamedPipe.svg)](https://badge.fury.io/nu/JKang.IpcServiceFramework.Hosting.NamedPipe) |
-| JKang.IpcServiceFramework.Hosting.Tcp | Server SDK to run TCP IPC service endpoint | [![NuGet version](https://badge.fury.io/nu/JKang.IpcServiceFramework.Hosting.Tcp.svg)](https://badge.fury.io/nu/JKang.IpcServiceFramework.Hosting.Tcp) |
+| WinCopies.IPCService.Client.NamedPipe | Client SDK to consume IPC service over Named pipe | [![NuGet version](https://badge.fury.io/nu/WinCopies.IPCService.Client.NamedPipe.svg)](https://badge.fury.io/nu/WinCopies.IPCService.Client.NamedPipe) |
+| WinCopies.IPCService.Hosting.NamedPipe | Server SDK to run Named pipe IPC service endpoint | [![NuGet version](https://badge.fury.io/nu/WinCopies.IPCService.Hosting.NamedPipe.svg)](https://badge.fury.io/nu/WinCopies.IPCService.Hosting.NamedPipe) |
 
 
 ## Usage
@@ -45,7 +41,7 @@ Named pipeline and TCP support out-of-the-box, extensible with other protocols.
 
     ```powershell
     > Install-Package Microsoft.Extensions.Hosting
-    > Install-Package JKang.IpcServiceFramework.Hosting.NamedPipe
+    > Install-Package WinCopies.IPCService.Hosting.NamedPipe
     ```
 
  1. Register the service implementation and configure IPC endpoint(s):
@@ -80,7 +76,7 @@ Named pipeline and TCP support out-of-the-box, extensible with other protocols.
  1. Install the following NuGet package in client application:
 
     ```powershell
-    > Install-Package JKang.IpcServiceFramework.Client.NamedPipe
+    > Install-Package WinCopies.IPCService.Client.NamedPipe
     ```
 
  1. Invoke the server
@@ -92,11 +88,11 @@ Named pipeline and TCP support out-of-the-box, extensible with other protocols.
         .BuildServiceProvider();
 
     // resolve IPC client factory
-    IIpcClientFactory<IInterProcessService> clientFactory = serviceProvider
-        .GetRequiredService<IIpcClientFactory<IInterProcessService>>();
+    IClientFactory<IInterProcessService> clientFactory = serviceProvider
+        .GetRequiredService<IClientFactory<IInterProcessService>>();
 
     // create client
-    IIpcClient<IInterProcessService> client = clientFactory.CreateClient("client1");
+    IClient<IInterProcessService> client = clientFactory.CreateClient("client1");
 
     string output = await client.InvokeAsync(x => x.ReverseString(input));
     ```
