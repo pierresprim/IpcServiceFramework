@@ -2,16 +2,26 @@
 
   <PropertyGroup>
     <Authors>Jacques Kang and other GitHub contributors</Authors>
-    <Company />
-    <PackageLicenseUrl>https://github.com/jacqueskang/IPCService/blob/develop/LICENSE</PackageLicenseUrl>
-    <RepositoryUrl>https://github.com/jacqueskang/IPCService</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/jacqueskang/IPCService</PackageProjectUrl>
-    <Version>3.0.0</Version>
+    <PackageReleaseNotes>See Changelog</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Authors>Jacques Kang and other GitHub contributors</Authors>
+    <Copyright>Copyright (c) 2018 Jacques Kang Copyright (c) 2021 Pierre Sprimont</Copyright>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/pierresprim/IpcServiceFramework</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/pierresprim/IpcServiceFramework</PackageProjectUrl>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(DisableDynamicCodeGeneration)' == 'true'">
     <DefineConstants>DISABLE_DYNAMIC_CODE_GENERATION</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
