@@ -22,10 +22,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\repositories\IpcServiceFramework\src\WinCopies.IPCService.Hosting\WinCopies.IPCService.Hosting.xml</DocumentationFile>
+    <DocumentationFile>WinCopies.IPCService.Hosting.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
