@@ -6,6 +6,26 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AssemblyOriginatorKeyFile>WinCopies.IPCService.Client.snk</AssemblyOriginatorKeyFile>
     <Version>4.0.0</Version>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <!-- SourceLink related properties https://github.com/dotnet/SourceLink#using-sourcelink -->
+    <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\repositories\IpcServiceFramework\src\WinCopies.IPCService.Client\WinCopies.IPCService.Client.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(DisableDynamicCodeGeneration)' != 'true'">
