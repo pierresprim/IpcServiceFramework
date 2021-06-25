@@ -3,6 +3,8 @@
 A .NET Core 3.1 based lightweight framework for efficient inter-process communication.
 Named pipeline and TCP support out-of-the-box, extensible with other protocols.
 
+Forked from [https://github.com/jacqueskang/IpcServiceFramework](jacqueskang/IpcServiceFramework)
+
 ## NuGet packages
 | Name | Purpose | Status |
 | ---- | ------- | ------ |
