@@ -61,6 +61,24 @@ namespace WinCopies.IPCService.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to deserialize IPC message..
+        /// </summary>
+        internal static string FailedToDeserializeIPCMessage {
+            get {
+                return ResourceManager.GetString("FailedToDeserializeIPCMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to serialize IPC message..
+        /// </summary>
+        internal static string FailedToSerializeIPCMessage {
+            get {
+                return ResourceManager.GetString("FailedToSerializeIPCMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid message header length must be 4 but was .
         /// </summary>
         internal static string InvalidMessageHeaderLength {

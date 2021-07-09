@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ClientIsNotConfigured" xml:space="preserve">
+    <value>IPC client '{0}' is not configured.</value>
+  </data>
   <data name="OnlySupport" xml:space="preserve">
     <value>Only support {0}, ex: x =&gt; x.GetData(a, b)</value>
   </data>

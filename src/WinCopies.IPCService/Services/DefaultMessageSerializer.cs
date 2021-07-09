@@ -27,6 +27,8 @@ using System.Text;
 
 using WinCopies.Util;
 
+using static WinCopies.IPCService.Properties.Resources;
+
 namespace WinCopies.IPCService.Services
 {
     public class DefaultMessageSerializer : IMessageSerializer
@@ -55,7 +57,7 @@ namespace WinCopies.IPCService.Services
 
             catch (System.Exception ex) when (CatchException(ex, true))
             {
-                throw new SerializationException("Failed to deserialize IPC message", ex);
+                throw new SerializationException(FailedToDeserializeIPCMessage, ex);
             }
         }
 
@@ -68,7 +70,7 @@ namespace WinCopies.IPCService.Services
 
             catch (System.Exception ex) when (CatchException(ex, false))
             {
-                throw new SerializationException("Failed to serialize IPC message", ex);
+                throw new SerializationException(FailedToSerializeIPCMessage, ex);
             }
         }
     }

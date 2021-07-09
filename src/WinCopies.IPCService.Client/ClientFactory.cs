@@ -45,7 +45,7 @@ namespace WinCopies.IPCService.Client
 
             if (registration == null)
 
-                throw new ArgumentException($"IPC client '{name}' is not configured.", nameof(name));
+                throw new ArgumentException(string.Format(Properties.Resources.ClientIsNotConfigured, name), nameof(name));
 
             using (IServiceScope scope = _serviceProvider.CreateScope())
 

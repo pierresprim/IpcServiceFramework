@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FailedToDeserializeIPCMessage" xml:space="preserve">
+    <value>Failed to deserialize IPC message.</value>
+  </data>
+  <data name="FailedToSerializeIPCMessage" xml:space="preserve">
+    <value>Failed to serialize IPC message.</value>
+  </data>
   <data name="InvalidMessageHeaderLength" xml:space="preserve">
     <value>Invalid message header length must be 4 but was </value>
   </data>

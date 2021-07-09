@@ -61,6 +61,15 @@ namespace WinCopies.IPCService.Client.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IPC client &apos;{0}&apos; is not configured..
+        /// </summary>
+        internal static string ClientIsNotConfigured {
+            get {
+                return ResourceManager.GetString("ClientIsNotConfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only support {0}, ex: x =&gt; x.GetData(a, b).
         /// </summary>
         internal static string OnlySupport {

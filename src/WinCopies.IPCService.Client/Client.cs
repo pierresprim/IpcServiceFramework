@@ -21,7 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
 using System;
-using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -38,13 +37,13 @@ namespace WinCopies.IPCService.Client
     {
         private readonly ClientOptions _options;
 
+        public string Name { get; }
+
         protected Client(string name, ClientOptions options)
         {
             Name = name;
             _options = options;
         }
-
-        public string Name { get; }
 
 #if !DISABLE_DYNAMIC_CODE_GENERATION
         private static void RunTask(in Response response)
@@ -89,7 +88,7 @@ namespace WinCopies.IPCService.Client
                 ? throw response.CreateFaultException()
                 : _options.ValueConverter.TryConvert(response.Data, typeof(TResult), out object @return)
                 ? (TResult)@return
-                : throw new SerializationException($"Unable to convert returned value to '{typeof(TResult).Name}'.");
+                : throw new SerializationException(string.Format(UnableToConvertReturnedValue, typeof(TResult).Name));
         }
 
         public async Task InvokeAsync(Request request, CancellationToken cancellationToken = default)
@@ -140,7 +139,7 @@ namespace WinCopies.IPCService.Client
 
                 if (genericTypes.Length > 0)
                 {
-                    genericByName = new RequestParameterType[genericTypes.Count()];
+                    genericByName = new RequestParameterType[genericTypes.Length];
 
                     int i = 0;
 
