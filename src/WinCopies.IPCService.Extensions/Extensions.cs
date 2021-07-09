@@ -52,6 +52,15 @@ namespace WinCopies.IPCService.Extensions
 
     public static class Extensions
     {
+        public static async Task StartThread(ThreadStart threadStart, int maxStackSize)
+        {
+            var t = new Thread(threadStart, maxStackSize);
+
+            t.SetApartmentState(ApartmentState.STA);
+
+            t.Start();
+        }
+
         public static async Task<(Mutex mutex, bool mutexExists, NullableGeneric<TOut> serverResult)> StartInstanceAsync<TInterface, TClass, TOut>(this ISingleInstanceApp<TInterface, TOut> app) where TInterface : class where TClass : class, TInterface
         {
             string pipeName = app.GetPipeName();
@@ -68,22 +77,22 @@ namespace WinCopies.IPCService.Extensions
 
             try
             {
+                void _throw(in System.Exception exception)
+                {
+                    rethrow = true;
+
+                    throw exception;
+                }
+
                 if (result.mutex.WaitOne(0))
                 {
                     ThreadStart threadStart = app.GetThreadStart(out int maxStackSize);
 
                     if (threadStart == null)
-                    {
-                        rethrow = true;
 
-                        throw new InvalidOperationException($"{nameof(app)}.{nameof(app.GetThreadStart)} returned null.");
-                    }
+                        _throw(new InvalidOperationException($"{nameof(app)}.{nameof(app.GetThreadStart)} returned null."));
 
-                    var t = new Thread(threadStart, maxStackSize);
-
-                    t.SetApartmentState(ApartmentState.STA);
-
-                    t.Start();
+                    await StartThread(threadStart, maxStackSize);
 
                     Host.CreateDefaultBuilder()
                        .ConfigureServices(services => services.AddScoped<TInterface, TClass>())
@@ -114,11 +123,8 @@ namespace WinCopies.IPCService.Extensions
                         expression = app.GetAsyncExpression();
 
                         if (expression == null)
-                        {
-                            rethrow = true;
 
-                            throw new InvalidOperationException("No expression could be retrieved.");
-                        }
+                            _throw(new InvalidOperationException("No expression could be retrieved."));
 
                         else
                         {
