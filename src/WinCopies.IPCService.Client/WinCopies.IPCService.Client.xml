@@ -57,6 +57,11 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:WinCopies.IPCService.Client.Properties.Resources.ClientIsNotConfigured">
+            <summary>
+              Looks up a localized string similar to IPC client &apos;{0}&apos; is not configured..
+            </summary>
+        </member>
         <member name="P:WinCopies.IPCService.Client.Properties.Resources.OnlySupport">
             <summary>
               Looks up a localized string similar to Only support {0}, ex: x =&gt; x.GetData(a, b).

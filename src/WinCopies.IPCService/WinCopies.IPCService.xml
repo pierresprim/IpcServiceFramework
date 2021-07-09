@@ -33,6 +33,16 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:WinCopies.IPCService.Properties.Resources.FailedToDeserializeIPCMessage">
+            <summary>
+              Looks up a localized string similar to Failed to deserialize IPC message..
+            </summary>
+        </member>
+        <member name="P:WinCopies.IPCService.Properties.Resources.FailedToSerializeIPCMessage">
+            <summary>
+              Looks up a localized string similar to Failed to serialize IPC message..
+            </summary>
+        </member>
         <member name="P:WinCopies.IPCService.Properties.Resources.InvalidMessageHeaderLength">
             <summary>
               Looks up a localized string similar to Invalid message header length must be 4 but was .

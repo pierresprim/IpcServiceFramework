@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WinCopies.IPCService.Extensions</name>
+    </assembly>
+    <members>
+        <member name="M:WinCopies.IPCService.Extensions.ISingleInstanceApp`2.GetThreadStart(System.Int32@)">
+            <seealso cref="M:System.Threading.Thread.#ctor(System.Threading.ThreadStart,System.Int32)"/>
+        </member>
+    </members>
+</doc>
