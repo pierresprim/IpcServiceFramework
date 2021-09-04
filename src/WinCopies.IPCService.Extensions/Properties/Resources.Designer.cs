@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WinCopies.IPCService.Properties {
+namespace WinCopies.IPCService.Extensions.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace WinCopies.IPCService.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WinCopies.IPCService.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WinCopies.IPCService.Extensions.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,20 @@ namespace WinCopies.IPCService.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to deserialize IPC message..
+        ///   Looks up a localized string similar to app.GetThreadStart returned null..
         /// </summary>
-        internal static string FailedToDeserializeIPCMessage {
+        internal static string GetThreadStartReturnedNull {
             get {
-                return ResourceManager.GetString("FailedToDeserializeIPCMessage", resourceCulture);
+                return ResourceManager.GetString("GetThreadStartReturnedNull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to serialize IPC message..
+        ///   Looks up a localized string similar to No expression could be retrieved..
         /// </summary>
-        internal static string FailedToSerializeIPCMessage {
+        internal static string NoExpressionCouldBeRetrieved {
             get {
-                return ResourceManager.GetString("FailedToSerializeIPCMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid message header length must be 4 but was .
-        /// </summary>
-        internal static string InvalidMessageHeaderLength {
-            get {
-                return ResourceManager.GetString("InvalidMessageHeaderLength", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The response doesn&apos;t contain any error..
-        /// </summary>
-        internal static string ResponseNotContainsAnyError {
-            get {
-                return ResourceManager.GetString("ResponseNotContainsAnyError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Stream closed unexpectedly..
-        /// </summary>
-        internal static string StreamClosedUnexpectedly {
-            get {
-                return ResourceManager.GetString("StreamClosedUnexpectedly", resourceCulture);
+                return ResourceManager.GetString("NoExpressionCouldBeRetrieved", resourceCulture);
             }
         }
     }
