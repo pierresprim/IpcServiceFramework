@@ -97,7 +97,3 @@ Forked from [https://github.com/jacqueskang/IpcServiceFramework](jacqueskang/Ipc
 
     string output = await client.InvokeAsync(x => x.ReverseString(input));
     ```
-
-## FAQs
-
-
