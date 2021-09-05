@@ -10,6 +10,7 @@ Forked from [https://github.com/jacqueskang/IpcServiceFramework](jacqueskang/Ipc
 | ---- | ------- | ------ |
 | WinCopies.IPCService.Client.NamedPipe | Client SDK to consume IPC service over Named pipe | [![NuGet version](https://badge.fury.io/nu/WinCopies.IPCService.Client.NamedPipe.svg)](https://badge.fury.io/nu/WinCopies.IPCService.Client.NamedPipe) |
 | WinCopies.IPCService.Hosting.NamedPipe | Server SDK to run Named pipe IPC service endpoint | [![NuGet version](https://badge.fury.io/nu/WinCopies.IPCService.Hosting.NamedPipe.svg)](https://badge.fury.io/nu/WinCopies.IPCService.Hosting.NamedPipe) |
+| WinCopies.IPCService.Extensions(.Windows) | SDK to build single-instance applications | [![NuGet version](https://badge.fury.io/nu/WinCopies.IPCService.Extensions.svg)](https://badge.fury.io/nu/WinCopies.IPCService.Extensions) [![NuGet version](https://badge.fury.io/nu/WinCopies.IPCService.Extensions.Windows.svg)](https://badge.fury.io/nu/WinCopies.IPCService.Extensions.Windows) |
 
 
 ## Usage
