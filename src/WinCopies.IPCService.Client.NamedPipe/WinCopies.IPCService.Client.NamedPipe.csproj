@@ -10,18 +10,6 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <!-- SourceLink related properties https://github.com/dotnet/SourceLink#using-sourcelink -->
-    <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-
-    <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-
-    <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <DocumentationFile>WinCopies.IPCService.Client.NamedPipe.xml</DocumentationFile>
   </PropertyGroup>
 

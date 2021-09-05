@@ -31,9 +31,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 
 using WinCopies.Collections;
 using WinCopies.Collections.DotNetFix;
@@ -45,7 +45,6 @@ using WinCopies.Linq;
 
 using static WinCopies.ThrowHelper;
 using static WinCopies.IPCService.Extensions.Properties.Resources;
-using System.Text;
 
 namespace WinCopies.IPCService.Extensions
 {
@@ -244,10 +243,8 @@ namespace WinCopies.IPCService.Extensions
         public SingleInstanceApp<TItems, TApplication> App { get; internal set; }
     }
 
-    public abstract class SingleInstanceApp<T>
+    public static class SingleInstanceApp
     {
-        protected abstract string FileName { get; }
-
         public static unsafe System.Collections.Generic.IEnumerable<string> GetArray(ref ArrayBuilder<string> arrayBuilder, System.Collections.Generic.IEnumerable<string> keys, int* i, params string[] args)
         {
             if (arrayBuilder == null)
@@ -266,85 +263,6 @@ namespace WinCopies.IPCService.Extensions
 
             return arrayBuilder.ToArray();
         }
-
-        #region Main Methods
-        public async Task MainMutex<TItems, TClass>(ISingleInstanceApp<IUpdater, int, T> app, bool paths, IQueue<TItems> pathQueue) where TClass : class, IUpdater
-        {
-            (Mutex mutex, bool mutexExists, NullableGeneric<int> serverResult) = await app.StartInstanceAsync<IUpdater, TClass, int>().Await();
-
-            using (mutex)
-
-                if (mutexExists)
-
-                    if (paths && pathQueue == null)
-
-                        await Extensions.StartThread2(() => app.Run(GetDefaultApp<TItems>(null)), 0).Await();
-
-                    else
-
-                        Environment.Exit(serverResult == null ? 0 : serverResult.Value);
-        }
-
-        private protected abstract Task MainDefault();
-
-        public async Task Main(params string[] args)
-        {
-            if (args.Length == 0)
-            {
-                await MainDefault().Await();
-
-                return;
-            }
-
-            Loader loader = GetLoader();
-
-            Initialize(loader.GetActions(), args);
-
-            IQueueBase defaultArgs = loader.DefaultQueue;
-
-            System.Collections.Generic.IEnumerable<IQueueBase> queues = loader.GetQueues();
-
-            bool runDefault = true;
-
-            async Task run(IQueueBase queue) => await queue.Run().Await();
-
-            foreach (IQueueBase queue in queues)
-
-                if (queue.HasItems)
-                {
-                    runDefault = false;
-
-                    if (defaultArgs.HasItems)
-                    {
-                        System.Collections.Generic.IEnumerable<string> pathsToEnumerable()
-                        {
-                            do
-                            {
-                                yield return loader.DefaultKey;
-
-                                yield return defaultArgs.DequeueAsString();
-                            }
-
-                            while (defaultArgs.HasItems);
-                        }
-
-                        StartInstance(FileName, pathsToEnumerable());
-                    }
-
-                    await run(queue).Await();
-                }
-
-            if (runDefault)
-
-                await run(defaultArgs).Await();
-        }
-        #endregion
-
-        protected abstract Loader GetLoader();
-
-        public abstract T GetDefaultApp<TItems>(IQueue<TItems> queue);
-
-        private unsafe delegate void Action(int* i);
 
         public static string GetAssemblyDirectory() => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
@@ -377,6 +295,22 @@ in
                 );
         }
 
+        public static void Initialize(in IDictionary<string, IPCService.Extensions.Action> actions, params string[] args)
+        {
+            ArrayBuilder<string> arrayBuilder = null;
+            KeyValuePair<string, IPCService.Extensions.Action> keyValuePair;
+
+            for (int i = 0; i < args.Length;)
+
+                if (actions.FirstOrDefaultValue(_keyValuePair => _keyValuePair.Key == args[i], out keyValuePair))
+
+                    RunAction(ref i, ref arrayBuilder, keyValuePair, args);
+
+            arrayBuilder?.Clear();
+        }
+
+        private unsafe delegate void Action(int* i);
+
         private static unsafe void RunAction(in Action action, int* i)
         {
             (*i)++;
@@ -391,37 +325,105 @@ in
 
             RunAction(__i => keyValuePair.Value(args, ref _arrayBuilder, __i), &_i);
 
-            i = _i;
+            i = ++_i;
             arrayBuilder = _arrayBuilder;
         }
+    }
 
-        public static void Initialize(in IDictionary<string, IPCService.Extensions.Action> actions, params string[] args)
+    public abstract class SingleInstanceApp<T>
+    {
+        protected abstract string FileName { get; }
+
+        #region Main Methods
+        public async Task MainMutex<TItems, TClass>(ISingleInstanceApp<IUpdater, int, T> app, bool paths, IQueue<TItems> pathQueue) where TClass : class, IUpdater
         {
-            ArrayBuilder<string> arrayBuilder = null;
-            KeyValuePair<string, IPCService.Extensions.Action> keyValuePair;
+            (Mutex mutex, bool mutexExists, NullableGeneric<int> serverResult) = await app.StartInstanceAsync<IUpdater, TClass, int>().Await();
 
-            for (int i = 0; i < args.Length;)
+            using (mutex)
 
-                if (actions.FirstOrDefaultValue(_keyValuePair => _keyValuePair.Key == args[i], out keyValuePair))
+                if (mutexExists)
 
-                    RunAction(ref i, ref arrayBuilder, keyValuePair, args);
+                    if (paths && pathQueue == null)
 
-            arrayBuilder?.Clear();
+                        await Extensions.StartThread2(() => app.Run(GetDefaultApp<TItems>(null)), 0).Await();
+
+                    else
+
+                        Environment.Exit(serverResult == null ? 0 : serverResult.Value);
         }
+
+        protected abstract Task MainDefault<TClass>() where TClass : class, IUpdater;
+
+        public async Task Main<TClass>(params string[] args) where TClass : class, IUpdater
+        {
+            if (args.Length == 0)
+            {
+                await MainDefault<TClass>().Await();
+
+                return;
+            }
+
+            Loader loader = GetLoader();
+
+            SingleInstanceApp.Initialize(loader.GetActions(), args);
+
+            IQueueBase defaultArgs = loader.DefaultQueue;
+
+            System.Collections.Generic.IEnumerable<IQueueBase> queues = loader.GetQueues();
+
+            bool runDefault = true;
+
+            async Task run(IQueueBase queue) => await queue.Run().Await();
+
+            foreach (IQueueBase queue in queues)
+
+                if (queue.HasItems)
+                {
+                    runDefault = false;
+
+                    if (defaultArgs.HasItems)
+                    {
+                        System.Collections.Generic.IEnumerable<string> pathsToEnumerable()
+                        {
+                            do
+                            {
+                                yield return loader.DefaultKey;
+
+                                yield return defaultArgs.DequeueAsString();
+                            }
+
+                            while (defaultArgs.HasItems);
+                        }
+
+                        SingleInstanceApp.StartInstance(FileName, pathsToEnumerable());
+                    }
+
+                    await run(queue).Await();
+                }
+
+            if (runDefault)
+
+                await run(defaultArgs).Await();
+        }
+        #endregion
+
+        protected abstract Loader GetLoader();
+
+        public abstract T GetDefaultApp<TItems>(IQueue<TItems> queue);
     }
 
     public abstract class SingleInstanceApp<TItems, TApplication> : SingleInstanceApp<TApplication> where TItems : class
     {
         public abstract SingleInstanceAppInstance<IQueue<TItems>, TApplication> GetDefaultSingleInstanceApp(IQueue<TItems> args);
 
-        public async Task MainDefault(IQueue<TItems> args) => await MainMutex<TItems, IUpdater>(GetDefaultSingleInstanceApp(args), true, args).Await();
+        public async Task MainDefault<T>(IQueue<TItems> args) where T : class, IUpdater => await MainMutex<TItems, T>(GetDefaultSingleInstanceApp(args), true, args).Await();
 
-        private protected override Task MainDefault() => MainDefault(null);
+        protected override Task MainDefault<T>() => MainDefault<T>(null);
     }
 
     public abstract class SingleInstanceApp2<TItems, TApplication> : SingleInstanceApp<TItems, TApplication> where TItems : class
     {
-        protected override Loader GetLoader()
+        protected sealed override Loader GetLoader()
         {
             AppLoader<TItems, TApplication> loader = GetLoaderOverride();
 
