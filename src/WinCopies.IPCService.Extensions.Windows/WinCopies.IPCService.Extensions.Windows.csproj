@@ -6,6 +6,7 @@
     <SignAssembly>true</SignAssembly>
     <UseWPF>true</UseWPF>
     <Version>4.1</Version>
+    <AssemblyOriginatorKeyFile>WinCopies.IPCService.Extensions.Windows.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
