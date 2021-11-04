@@ -554,6 +554,8 @@ in
 
             Reset();
         }
+
+        protected override void ResetOverride2() { /* Left empty. */ }
     }
 
     public class CustomEnumeratorProvider<TItems, TEnumerator> : System.Collections.Generic.IEnumerable<TItems> where TEnumerator : System.Collections.Generic.IEnumerator<TItems>

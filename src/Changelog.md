@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 11/04/2021 4.2
+
+Update to WinCopies.Util packages 3.16.
+
 ### 09/05/2021 4.1
 
 Add WinCopies.IPCService.Extensions.Windows package and upgrade WinCopies.IPCService.Extensions package.
