@@ -37,7 +37,7 @@ namespace WinCopies.IPCService.Services
 
                 throw new ArgumentNullException(nameof(destType));
 
-            Type destConcreteType = Nullable.GetUnderlyingType(destType);
+            Type destConcreteType = System.Nullable.GetUnderlyingType(destType);
 
             if (origValue == null)
             {
@@ -143,7 +143,7 @@ namespace WinCopies.IPCService.Services
 
             try
             {
-                destValue = Convert.ChangeType(origValue, destType, CultureInfo.InvariantCulture);
+                destValue = System.Convert.ChangeType(origValue, destType, CultureInfo.InvariantCulture);
 
                 return true;
             }

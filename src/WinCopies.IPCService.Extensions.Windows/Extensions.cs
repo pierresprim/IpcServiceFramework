@@ -24,8 +24,10 @@ namespace WinCopies.IPCService.Extensions
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
-
+#if IPC5
+            if (MainWindow != null)
+            {
+#endif
             _OpenWindows.CollectionChanged += OpenWindows_CollectionChanged;
 
             //MainWindow = new MainWindow();
@@ -35,11 +37,21 @@ namespace WinCopies.IPCService.Extensions
             OnStartup2(e);
 
             MainWindow.Show();
+
+            base.OnStartup(e);
+#if IPC5
+            }
+#endif
         }
 
         protected abstract void OnStartup2(StartupEventArgs e);
 
-        private void OpenWindows_CollectionChanged(object sender, LinkedCollectionChangedEventArgs<Window> e) => Environment.Exit(0);
+        private void OpenWindows_CollectionChanged(object sender, LinkedCollectionChangedEventArgs<Window> e)
+        {
+            if (_OpenWindows.Count == 0)
+
+                Environment.Exit(0);
+        }
 
 #if !NETSTANDARD
         protected static ObservableLinkedCollection<Window> GetOpenWindows(in Application app) => GetOrThrowIfNull(app, nameof(app))._OpenWindows;
@@ -58,6 +70,14 @@ namespace WinCopies.IPCService.Extensions
             }
 
             public sealed override void Run(in System.Windows.Application application) => GetOrThrowIfNull(application, nameof(application)).Run();
+#if IPC5
+            protected override void Shutdown(System.Windows.Application application)
+            {
+                application.Shutdown(Environment.ExitCode);
+
+                Environment.Exit(Environment.ExitCode);
+            }
+#endif
         }
     }
 }

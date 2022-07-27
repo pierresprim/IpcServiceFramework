@@ -233,7 +233,7 @@ namespace WinCopies.IPCService.Extensions
 
         public abstract IQueueBase DefaultQueue { get; }
 
-        public abstract IDictionary<string, Action> GetActions();
+        public abstract System.Collections.Generic.IDictionary<string, Action> GetActions();
 
         public abstract System.Collections.Generic.IEnumerable<IQueueBase> GetQueues();
     }
@@ -295,14 +295,13 @@ in
                 );
         }
 
-        public static void Initialize(in IDictionary<string, IPCService.Extensions.Action> actions, params string[] args)
+        public static void Initialize(in System.Collections.Generic.IDictionary<string, IPCService.Extensions.Action> actions, params string[] args)
         {
             ArrayBuilder<string> arrayBuilder = null;
-            KeyValuePair<string, IPCService.Extensions.Action> keyValuePair;
 
             for (int i = 0; i < args.Length;)
 
-                if (actions.FirstOrDefaultValue(_keyValuePair => _keyValuePair.Key == args[i], out keyValuePair))
+                if (actions.FirstOrDefaultValue(_keyValuePair => _keyValuePair.Key == args[i], out KeyValuePair<string, IPCService.Extensions.Action> keyValuePair))
 
                     RunAction(ref i, ref arrayBuilder, keyValuePair, args);
 
@@ -454,13 +453,25 @@ in
 
         public abstract void Run(in TApplication application);
 
+#if IPC5
+        protected abstract void Shutdown(TApplication application);
+#endif
+
         private void Run()
         {
             TApplication app = GetApp();
 
             InnerObject = null;
 
-            Run(app);
+#if IPC5
+            if (Environment.ExitCode == 0)
+#endif
+                Run(app);
+#if IPC5
+            else
+
+                Shutdown(app);
+#endif
         }
 
         public ThreadStart GetThreadStart(out int maxStackSize)
@@ -488,7 +499,7 @@ in
         public CancellationToken? GetCancellationToken() => null;
     }
 
-#if !WinCopies4
+#if !IPC6
     public class ArrayEnumerator<T> : Enumerator<T>, ICountableDisposableEnumeratorInfo<T>
     {
         private System.Collections.Generic.IReadOnlyList<T> _array;
