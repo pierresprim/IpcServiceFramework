@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net472;netcoreapp3.0;netcoreapp3.1;net5.0-windows;net6.0-windows;net7.0-windows</TargetFrameworks>
+		<PackageTags>IPC,interprocess,communication,wcf,client</PackageTags>
+		<Version>4.1</Version>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<DocumentationFile>WinCopies.IPCService.Client.xml</DocumentationFile>
+		<AssemblyOriginatorKeyFile>WinCopies.IPCService.Client.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(DisableDynamicCodeGeneration)' != 'true'">
+		<PackageReference Include="System.Reflection.DispatchProxy" Version="4.7.1" />
+	</ItemGroup>
+
+	<Import Project="..\..\Shared\WinCopies.IPCService.Client.Shared\WinCopies.IPCService.Client.Shared.projitems" Label="Shared" />
+
+	<ItemGroup>
+	  <ProjectReference Include="..\WinCopies.IPCService\WinCopies.IPCService.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DependentUpon>Resources.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+	</ItemGroup>
+
+</Project>

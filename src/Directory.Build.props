@@ -1,96 +1,92 @@
 <Project>
+	<PropertyGroup>
+		<Authors>Jacques Kang and other GitHub contributors</Authors>
+		<PackageReleaseNotes>See Changelog</PackageReleaseNotes>
+		<Authors>Jacques Kang and other GitHub contributors</Authors>
+		<Copyright>Copyright (c) 2018 Jacques Kang Copyright (c) 2021 Pierre Sprimont</Copyright>
+		<RepositoryUrl>https://github.com/pierresprim/IpcServiceFramework</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/pierresprim/IpcServiceFramework</PackageProjectUrl>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <Authors>Jacques Kang and other GitHub contributors</Authors>
-    <PackageReleaseNotes>See Changelog</PackageReleaseNotes>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Authors>Jacques Kang and other GitHub contributors</Authors>
-    <Copyright>Copyright (c) 2018 Jacques Kang Copyright (c) 2021 Pierre Sprimont</Copyright>
-    <RepositoryUrl>https://github.com/pierresprim/IpcServiceFramework</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/pierresprim/IpcServiceFramework</PackageProjectUrl>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(DisableDynamicCodeGeneration)' == 'true'">
+		<DefineConstants>DISABLE_DYNAMIC_CODE_GENERATION</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(DisableDynamicCodeGeneration)' == 'true'">
-    <DefineConstants>DISABLE_DYNAMIC_CODE_GENERATION</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<DefineConstants>TRACE;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <!--Constants-->
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<!-- SourceLink related properties https://github.com/dotnet/SourceLink#using-sourcelink -->
+		<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <DefineConstants>TRACE;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+		<!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <!-- SourceLink related properties https://github.com/dotnet/SourceLink#using-sourcelink -->
-    <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-    <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 
-    <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<SignAssembly>true</SignAssembly>
+	</PropertyGroup>
 
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))'=='netcoreapp'">
+		<DefineConstants>CS4;CS5;CS6;CS7;CS8;NETCORE;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))'=='netcoreapp'">
-    <DefineConstants>CS6;CS7;CS8;NETCORE;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789-windows`))' == 'net6.'">
+		<DefineConstants>CS4;CS5;CS6;CS7;CS8;CS9;NET5;NET6;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789-windows`))' == 'net6.'">
-    <DefineConstants>CS4;CS5;CS6;CS7;CS8;CS9;NET5;NET6;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789-windows`))' == 'net5.'">
+		<DefineConstants>CS4;CS5;CS6;CS7;CS8;CS9;NET5;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789-windows`))' == 'net5.'">
-    <DefineConstants>CS4;CS5;CS6;CS7;CS8;CS9;NET5;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)'=='net35'">
+		<DefineConstants>CS4;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net35'">
-    <DefineConstants>CS4;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)'=='net40'">
+		<DefineConstants>CS4;CS5;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net40'">
-    <DefineConstants>CS4;CS5;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)'=='net45'">
+		<DefineConstants>CS4;CS5;CS6;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
-    <DefineConstants>CS4;CS5;CS6;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)'=='net472'">
+		<DefineConstants>CS4;CS5;CS6;CS7;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net472'">
-    <DefineConstants>CS4;CS5;CS6;CS7;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)'=='net48'">
+		<DefineConstants>CS4;CS5;CS6;CS7;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net48'">
-    <DefineConstants>CS4;CS5;CS6;CS7;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+		<DefineConstants>CS4;CS5;CS6;CS7;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <DefineConstants>CS4;CS5;CS6;CS7;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.1'">
+		<DefineConstants>CS4;CS5;CS6;CS7;CS8;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.1'">
-    <DefineConstants>CS4;CS5;CS6;CS7;CS8;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'">
+		<DefineConstants>NETSTANDARD;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'">
-    <DefineConstants>NETSTANDARD;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Platform)'=='x64'">
+		<DefineConstants>WIN64;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Platform)'=='x64'">
-    <DefineConstants>WIN64;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
-
-  <!--End Constants-->
-
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
+	<ItemGroup Condition="'$(Configuration)'=='Release'">
+		<None Include="$(SolutionDir)..\README.md" PackagePath="" Pack="true" />
+		<None Include="$(SolutionDir)..\LICENSE" PackagePath="" Pack="true" />
+	</ItemGroup>
 </Project>

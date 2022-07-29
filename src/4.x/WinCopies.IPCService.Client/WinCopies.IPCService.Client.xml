@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WinCopies.IPCService.Client</name>
+    </assembly>
+    <members>
+        <member name="T:WinCopies.IPCService.Client.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:WinCopies.IPCService.Client.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:WinCopies.IPCService.Client.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:WinCopies.IPCService.Client.Properties.Resources.ClientIsNotConfigured">
+            <summary>
+              Looks up a localized string similar to IPC client &apos;{0}&apos; is not configured..
+            </summary>
+        </member>
+        <member name="P:WinCopies.IPCService.Client.Properties.Resources.OnlySupport">
+            <summary>
+              Looks up a localized string similar to Only support {0}, ex: x =&gt; x.GetData(a, b).
+            </summary>
+        </member>
+        <member name="P:WinCopies.IPCService.Client.Properties.Resources.UnableToConvertReturnedValue">
+            <summary>
+              Looks up a localized string similar to Unable to convert returned value to &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="M:WinCopies.IPCService.Client.Client`1.InvokeAsync(System.Linq.Expressions.Expression{System.Action{`0}},System.Threading.CancellationToken)">
+            <exception cref="T:WinCopies.IPCService.SerializationException">If unable to serialize request</exception>
+            <exception cref="T:WinCopies.IPCService.CommunicationException">If communication is broken</exception>
+            <exception cref="T:WinCopies.IPCService.FaultException">If error occurred in server</exception>
+        </member>
+        <member name="M:WinCopies.IPCService.Client.Client`1.InvokeAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Threading.CancellationToken)">
+            <exception cref="T:WinCopies.IPCService.SerializationException">If unable to serialize request</exception>
+            <exception cref="T:WinCopies.IPCService.CommunicationException">If communication is broken</exception>
+            <exception cref="T:WinCopies.IPCService.FaultException">If error occurred in server</exception>
+        </member>
+        <member name="M:WinCopies.IPCService.Client.Client`1.InvokeAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Threading.Tasks.Task}},System.Threading.CancellationToken)">
+            <exception cref="T:WinCopies.IPCService.SerializationException">If unable to serialize request</exception>
+            <exception cref="T:WinCopies.IPCService.CommunicationException">If communication is broken</exception>
+            <exception cref="T:WinCopies.IPCService.FaultException">If error occurred in server</exception>
+        </member>
+        <member name="M:WinCopies.IPCService.Client.Client`1.InvokeAsync``1(System.Linq.Expressions.Expression{System.Func{`0,System.Threading.Tasks.Task{``0}}},System.Threading.CancellationToken)">
+            <exception cref="T:WinCopies.IPCService.SerializationException">If unable to serialize request</exception>
+            <exception cref="T:WinCopies.IPCService.CommunicationException">If communication is broken</exception>
+            <exception cref="T:WinCopies.IPCService.FaultException">If error occurred in server</exception>
+        </member>
+        <member name="P:WinCopies.IPCService.Client.ClientOptions.ConnectionTimeout">
+            <summary>
+            The number of milliseconds to wait for the server to respond before
+            the connection times out. Default value is 60000.
+            </summary>
+        </member>
+        <member name="P:WinCopies.IPCService.Client.ClientOptions.UseSimpleTypeNameAssemblyFormatHandling">
+            <summary>
+            Indicates the method that will be used during deserialization on the server for locating and loading assemblies.
+            If <c>false</c>, the assembly used during deserialization must match exactly the assembly used during serialization.
+            
+            If <c>true</c>, the assembly used during deserialization need not match exactly the assembly used during serialization.
+            Specifically, the version numbers need not match.
+            
+            Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="T:WinCopies.IPCService.Client.StreamWrapper">
+            <summary>
+            Tcp clients depend on both a TcpClient object and a Stream object.
+            This wrapper class ensures they are simultaneously disposed of.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="M:WinCopies.IPCService.Client.StreamWrapper.#ctor(System.IO.Stream,WinCopies.IDisposable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WinCopies.IPCService.Client.StreamWrapper"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+            <param name="context">The IDisposable context the Stream depends on.</param>
+        </member>
+    </members>
+</doc>

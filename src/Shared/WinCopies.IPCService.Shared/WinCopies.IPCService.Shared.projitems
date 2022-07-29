@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>fcac7c08-859d-4dd3-820f-60230a7148e1</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>WinCopies.IPCService</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CommunicationException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FaultException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Reader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Writer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Request.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Response.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SerializationException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\DefaultMessageSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\DefaultValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\IMessageSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\IValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Status.cs" />
+  </ItemGroup>
+</Project>
