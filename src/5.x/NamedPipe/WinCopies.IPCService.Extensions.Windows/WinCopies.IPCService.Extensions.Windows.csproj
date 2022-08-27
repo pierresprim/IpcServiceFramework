@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net472;netcoreapp3.0;netcoreapp3.1;net5.0-windows;net6.0-windows;net7.0-windows</TargetFrameworks>
 		<UseWPF>true</UseWPF>
-		<Version>5.0</Version>
+		<Version>5.1</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<DefineConstants>IPC5;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
@@ -14,8 +14,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="WinCopies.Util" Version="3.18.1" />
-		<PackageReference Include="WinCopies.Collections" Version="3.18-preview" />
+		<PackageReference Include="WinCopies.Collections" Version="3.20-preview" />
 	</ItemGroup>
 
 	<ItemGroup>

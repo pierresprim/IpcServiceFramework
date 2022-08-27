@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 08/2022 5.0.1
+
+- Upgrade to WinCopies.Collections v3.20-preview.
+
 ### 07/2022 5.0
 
 - SingleInstanceAppInstance: new abstract method: Shutdown. This method is called by the private Run() method when the result of the check it is performing now, whether Environment.ExitCode is still set to zero, returns false.
